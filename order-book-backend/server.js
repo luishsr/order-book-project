@@ -7,7 +7,7 @@ const dbConfig = require("./app/config/db.config");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:8081",
 };
 
 app.use(cors(corsOptions));
@@ -20,9 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cookieSession({
-    name: "bezkoder-session",
+    name: "lhstech-session",
     secret: "COOKIE_SECRET", // should use as secret environment variable
-    httpOnly: true
+    httpOnly: true,
   })
 );
 
@@ -32,20 +32,20 @@ const Role = db.role;
 db.mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then(() => {
     console.log("Successfully connect to MongoDB.");
     initial();
   })
-  .catch(err => {
+  .catch((err) => {
     console.error("Connection error", err);
     process.exit();
   });
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to lhstech application." });
 });
 
 // routes
@@ -62,8 +62,8 @@ function initial() {
   Role.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
       new Role({
-        name: "user"
-      }).save(err => {
+        name: "user",
+      }).save((err) => {
         if (err) {
           console.log("error", err);
         }
@@ -72,8 +72,8 @@ function initial() {
       });
 
       new Role({
-        name: "moderator"
-      }).save(err => {
+        name: "moderator",
+      }).save((err) => {
         if (err) {
           console.log("error", err);
         }
@@ -82,8 +82,8 @@ function initial() {
       });
 
       new Role({
-        name: "admin"
-      }).save(err => {
+        name: "admin",
+      }).save((err) => {
         if (err) {
           console.log("error", err);
         }
